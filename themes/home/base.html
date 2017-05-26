@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+	<meta name="format-detection" content="telephone=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    {block name="title"}
+    <title>{$site_title|default='Bitreas'}</title>
+    {/block}
+    <meta name="description" content="Open Source BMS，全称Open Source Background System，基于ThinkPHP5开发的开源后台管理系统">
+    <link rel="stylesheet" href="__JS__/layui/css/layui.css">
+    <link rel="stylesheet" href="__CSS__/home.css">
+</head>
+<body>
+<div class="layui-layout">
+    <!--头部-->
+    <div class="layui-header header">
+    	<div class="logo"><a href="/">Bitreas</a></div>
+        <ul class="layui-nav home-nav">
+		  <li class="layui-nav-item"><a href="{:url('home/index/index')}">首页</a></li>
+		  <li class="layui-nav-item">
+		    <a href="javascript:;">房间列表</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="">BTC房间</a></dd>
+		    </dl>
+		  </li>
+		  <li class="layui-nav-item"><a href="{:url('home/user/index')}">个人中心</a></li>
+		  <li class="layui-nav-item">
+		    <a href="javascript:;">资讯帮助</a>
+		    <dl class="layui-nav-child">
+		      <dd><a href="">网站资讯</a></dd>
+		      <dd><a href="">玩法介绍</a></dd>
+		    </dl>
+		  </li>
+		 </ul>
+		 <ul class="layui-nav nav-login">
+		 {php}
+		 	if(session('userid')>0){
+		 {/php}
+		 	<li class="layui-nav-item">
+                <a href="javascript:;">{:session('username')}</a>
+                <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                	<dd><a href="{:url('home/user/finance')}">虚拟币管理</a></dd>
+                	<dd><a href="{:url('home/user/recharge')}">虚拟币转入</a></dd>
+                	<dd><a href="{:url('home/user/withdraw')}">虚拟币转出</a></dd>
+                	<dd><a href="{:url('home/user/index')}">个人中心</a></dd>
+                    <dd><a href="javascript:;" onclick="logout();">退出登录</a></dd>
+                </dl>
+            </li>
+		 {php}
+		 	}else{
+		 {/php}
+		 <li class="layui-nav-item"><a id="nav_login">登陆</a></li>
+		  <li class="layui-nav-item"><a id="nav_sign">注册</a></li>
+		 {php}
+		 	}
+		 {/php}
+		  
+		</ul>
+	</div>
+
+
+    <!--主体-->
+    {block name="body"}{/block}
+
+    <!--底部-->
+    <div class="layui-footer footer">
+        <div class="layui-main footer-main">
+            <p>2016-2017 &copy; Bitreas</p>
+        </div>
+    </div>
+    
+    <div id="nav-login-box" style="display:none">
+    	<form class="layui-form layui-form-pane nav-login-form">  
+	      <div class="layui-form-item">  
+	          <label class="layui-form-label">用户名：</label>  
+	          <div class="layui-input-block">  
+	              <input type="text" id="" name="username" placeholder="请输入用户名" class="layui-input"/>  
+	          </div>  
+	      </div>  
+	      <div class="layui-form-item">  
+	          <label class="layui-form-label">密 码：</label>  
+	          <div class="layui-input-block">  
+	              <input type="password" id="" name="password" placeholder="请输入密码" class="layui-input"/>  
+	          </div>  
+	      </div>  
+	      <div class="layui-form-item">
+		        <label class="layui-form-label">验证码</label>
+		        <div class="layui-input-block">
+		            <input type="text" name="verify" required lay-verify="required" placeholder="请输入验证码" class="layui-input layui-input-inline">
+		            <img src="{:captcha_src()}" alt="点击更换" title="点击更换" onclick="this.src='{:captcha_src()}?time='+Math.random()" class="captcha">
+		        </div>
+		    </div>
+	      <div class="layui-form-item">
+		    <div class="layui-input-block">
+		      <button class="layui-btn" lay-submit lay-filter="loginfilter">登陆</button>
+		      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		    </div>
+  		  </div>
+    	</form>
+	</div>
+	
+	<div id="nav-sign-box" style="display:none">
+    	<form class="layui-form layui-form-pane nav-sign-form">  
+	      <div class="layui-form-item">  
+	          <label class="layui-form-label">用户名：</label>  
+	          <div class="layui-input-block">  
+	              <input type="text" id="" name="username" required lay-verify="required" autocomplete="off" placeholder="请输入用户名" class="layui-input"/>  
+	          </div>  
+	      </div>
+	      <div class="layui-form-item">  
+	          <label class="layui-form-label">邮箱：</label>  
+	          <div class="layui-input-block">  
+	              <input type="text" id="" name="email" required lay-verify="required" autocomplete="off" placeholder="请输入邮箱" class="layui-input"/>  
+	          </div>  
+	      </div>  
+	      <div class="layui-form-item">  
+	          <label class="layui-form-label">登陆密码：</label>  
+	          <div class="layui-input-block">  
+	              <input type="password" id="" name="password" required lay-verify="required" autocomplete="off" placeholder="请输入密码" class="layui-input"/>  
+	          </div>  
+	      </div> 
+	      <div class="layui-form-item">  
+	          <label class="layui-form-label">确认密码：</label>  
+	          <div class="layui-input-block">  
+	              <input type="password" id="" name="confirm_password" required lay-verify="required" autocomplete="off" placeholder="请再次输入密码" class="layui-input"/>  
+	          </div>  
+	      </div>  
+	      <div class="layui-form-item">
+		        <label class="layui-form-label">验证码</label>
+		        <div class="layui-input-block">
+		            <input type="text" name="verify" required lay-verify="required" placeholder="请输入验证码" class="layui-input layui-input-inline">
+		            <img src="{:captcha_src()}" alt="点击更换" title="点击更换" onclick="this.src='{:captcha_src()}?time='+Math.random()" class="captcha">
+		        </div>
+		    </div> 
+	      <div class="layui-form-item">
+		    <div class="layui-input-block">
+		      <button class="layui-btn" lay-submit lay-filter="signfilter">注册</button>
+		    </div>
+  		  </div>
+    	</form>
+	</div>
+<script>
+	//定义全局JS变量
+	var GV = {
+			current_controller: "home/{$controller|default='index'}",
+			current_method: "{$method|default='index'}",
+			base_url: "__STATIC__"
+	};
+</script>
+<script src="__JS__/jquery.min.js"></script>
+<script src="__JS__/layui/lay/dest/layui.all.js"></script>
+<script src="__JS__/home.js"></script>
+{block name="js"}{/block}
+<!--页面JS脚本-->
+
+{block name="script"}{/block}
+</body>
+</html>

@@ -1,0 +1,79 @@
+{extend name="base" /} {block name="body"} {include file="User:left" /}
+<div class="user-context">
+	<div class="user-title">
+		<h2>虚拟币转出</h2>
+	</div>
+	<div class="user-body">
+		<div class="layui-tab layui-tab-brief" lay-filter="TabBrief">
+			<ul class="layui-tab-title">
+				{foreach name="coins" item="coin"}
+				<li {if condition="$coin.name==$coinname" } class="layui-this"{/if}><a
+					href="{:url('home/user/recharge',['coinname'=>$coin.name])}">{$coin.title_cn}({$coin.title_en})</a></li>
+				{/foreach}
+			</ul>
+		</div>
+		<div class="tab-content">
+			<blockquote class="layui-elem-quote recharge-tip">您的
+				{$coins[$coinname]['title_cn']}({$coins[$coinname]['title_en']})
+				可用余额：{$usercoin['available']}</blockquote>
+			<hr>
+			<form class="layui-form" action="">
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">转出地址</label>
+			    <div class="layui-input-block">
+			      <input type="text" name="address" required  lay-verify="required" placeholder="请输入{$coins[$coinname]['title_cn']}转出地址" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">转出金额</label>
+			    <div class="layui-input-block">
+			      <input type="text" name="amount" required  lay-verify="required" placeholder="请输入{$coins[$coinname]['title_cn']}转出金额" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <div class="layui-input-block">
+			    	<input type="hidden" name="coinname" value="{$coinname}" class="layui-input">
+			      <button class="layui-btn" lay-submit lay-filter="withdrawfilter">转出{$coins[$coinname]['title_cn']}</button>
+			    </div>
+			  </div>
+			</form>
+		</div>
+		<div class="layui-main recharge-detail">
+			<fieldset class="layui-elem-field">
+				<legend>转出记录</legend>
+				<div class="layui-field-box">
+					<table class="layui-table">
+						<colgroup>
+							<col width="150">
+							<col>
+							<col>
+							<col>
+							<col>
+						</colgroup>
+						<thead>
+							<tr>
+								<th>流水ID</th>
+								<th>转出币种</th>
+								<th>转出时间</th>
+								<th>转出数量</th>
+								<th>状态</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>比特币</td>
+								<td>2016-11-29</td>
+								<td>1.15</td>
+								<td>已完成</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</fieldset>
+		</div>
+		
+	</div>
+</div>
+</div>
+{/block}

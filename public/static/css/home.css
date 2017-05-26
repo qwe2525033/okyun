@@ -1,0 +1,123 @@
+/** 前台公共样式 **/
+body{
+	min-width: 1366px;
+}
+.logo {
+	position: absolute;
+	width:200px;
+	height:60px;
+	margin-top: 10px;
+	margin-left: 20px;
+	font-size: xx-large;
+}
+
+.logo a{
+	color: antiquewhite;
+}
+
+.header {
+	background-color: #393D49;
+}
+
+.footer {
+	line-height: 44px;
+	position:fixed;
+	left:0;
+	right:0;
+	bottom:0;
+	height:44px;
+	background-color:#eee
+}
+
+.footer-main{
+	width:100%;
+}
+
+.footer-main p{
+	text-align:center;
+}
+
+.home-nav {
+	position: absolute;
+	top: 0;
+	left: 300px;
+	background: none;
+}
+
+.nav-login{
+	position: absolute;
+	right:50px;
+}
+
+.nav-login-form{
+	margin: 20px;
+}
+
+.nav-sign{
+	position: absolute;
+	right:50px;
+}
+
+.nav-sign-form{
+	margin: 20px;
+}
+
+.captcha{
+    width: 140px;
+    height: 38px;
+}
+
+.user-left{
+	position: absolute;
+	top: 60px;
+	width: 200px;
+	/* height: 100%; */
+}
+.user-left-side{
+	position: fixed;
+}
+.user-avatar{
+	width: 200px;
+	height: 200px;
+}
+.user-context{
+	margin-left: 210px;
+}
+.user-title{
+	display: inline-block;
+	width: 100%;
+	padding: 15px 0;
+    background: #e2e2e2;
+	font-size: 14px;
+    font-weight: 400;
+	background-color: #e2e2e2;
+}
+.user-title h2{
+	margin-left: 15px;
+}
+.user-body{
+	/* position: fixed;
+	padding: 10px; */
+	border: 1px solid #e2e2e2;
+	height: 100%;
+	padding: 15px;
+	/* width: 100%; */
+}
+.user-coin-img{
+	height:40px;
+	width:40px;
+}
+.bitcoin-address{
+	display: inline;
+	color: red;
+    font-family: cursive;
+	font-size: initial;
+}
+.recharge-detail{
+	position: initial;
+    bottom: 40px;
+	width: 100%;
+}
+.recharge-tip{
+	/* width: 100%; */
+}

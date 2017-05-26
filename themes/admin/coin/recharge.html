@@ -1,0 +1,47 @@
+{extend name="base" /}
+{block name="body"}
+<div class="layui-body">
+    <!--tab标签-->
+    <div class="layui-tab layui-tab-brief">
+        <ul class="layui-tab-title">
+            <li class="layui-this">虚拟币转入</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <table class="layui-table">
+                    <thead>
+                    <tr>
+                        <th style="width: 30px;">ID</th>
+                        <th>转入币种</th>
+                        <th>转入用户</th>
+                        <th>转入地址</th>
+                        <th>转入金额</th>
+                        <th>转入txid</th>
+                        <th>转入状态</th>
+                        <!-- <th>操作</th> -->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach name="recharge_list" item="vo"}
+                    <tr>
+                        <td>{$vo.id}</td>
+                        <td>{$vo.coinname}</td>
+                        <td>{$vo.username}(UID:{$vo.userid})</td>
+                        <td>{$vo.address}</td>
+                        <td>{$vo.amount}</td>
+                        <td>{$vo.txid}</td>
+                        <td>{php}echo ($vo['status']==0 ? "待确认" : ($vo['status']==1 ? "已确认" :"已撤销"));{/php}</td>
+                        <!-- <td>
+                            {php}echo ($vo['status']==0 ? "<a href=".url('admin/coin/recharge_update',['id'=>$vo['id'],'status'=>1])." class='layui-btn layui-btn-normal layui-btn-mini'>手动确认</a>" : "");{/php}
+                        </td> -->
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!--分页-->
+                {$recharge_list->render()}
+            </div>
+        </div>
+    </div>
+</div>
+{/block}

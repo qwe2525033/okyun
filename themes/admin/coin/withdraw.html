@@ -1,0 +1,50 @@
+{extend name="base" /}
+{block name="body"}
+<div class="layui-body">
+    <!--tab标签-->
+    <div class="layui-tab layui-tab-brief">
+        <ul class="layui-tab-title">
+            <li class="layui-this">虚拟币转出</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <table class="layui-table">
+                    <thead>
+                    <tr>
+                        <th style="width: 30px;">ID</th>
+                        <th>转出币种</th>
+                        <th>转出用户</th>
+                        <th>转出地址</th>
+                        <th>转出金额</th>
+                        <th>转出手续费</th>
+                        <th>转出txid</th>
+                        <th>转出状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach name="withdraw_list" item="vo"}
+                    <tr>
+                        <td>{$vo.id}</td>
+                        <td>{$vo.coinname}</td>
+                        <td>{$vo.username}(UID:{$vo.userid})</td>
+                        <td>{$vo.address}</td>
+                        <td>{$vo.amount}</td>
+                        <td>{$vo.fee}</td>
+                        <td>{$vo.txid}</td>
+                        <td>{php}echo ($vo['status']==0 ? "未转出" : ($vo['status']==1 ? "已转出" :"已撤销"));{/php}</td>
+                        <td>
+                            {php}echo $vo['status']==0 ? "<a href=".url('admin/coin/withdraw_update',['id'=>$vo['id'],'status'=>1])." class='layui-btn layui-btn-normal layui-btn-mini'>审核转出</a><a href=".url('admin/coin/withdraw_update',['id'=>$vo['id'],'status'=>2])." class='layui-btn layui-btn-normal layui-btn-mini'>撤销转出</a>" : "";{/php}
+                            
+                        </td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!--分页-->
+                {$withdraw_list->render()}
+            </div>
+        </div>
+    </div>
+</div>
+{/block}

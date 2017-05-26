@@ -1,0 +1,145 @@
+{extend name="base" /}
+{block name="body"}
+<div class="layui-body">
+    <!--tab标签-->
+    <div class="layui-tab layui-tab-brief">
+        <ul class="layui-tab-title">
+            <li class=""><a href="{:url('admin/coin/index')}">钱包管理</a></li>
+            <li class="layui-this">编辑钱包</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <form class="layui-form form-container" action="{:url('admin/coin/update')}" method="post">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">钱包名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="name" value="{$coin.name}" required  lay-verify="required" placeholder="请输入钱包名称" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">钱包类型</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="type" value="btc" title="比特币钱包" {if condition="$coin.type=='btc'"} checked="checked"{/if}>
+                            <input type="radio" name="type" value="eth" title="以太坊钱包" {if condition="$coin.type=='eth'"} checked="checked"{/if}>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">钱包中文名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title_cn" value="{$coin.title_cn}" required  lay-verify="required" placeholder="请输入钱包中文名" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">钱包英文名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title_en" value="{$coin.title_en}" required  lay-verify="required" placeholder="请输入钱包英文名" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">钱包符号</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="symbol" value="{$coin.symbol}" required  lay-verify="required" placeholder="请输入钱包符号" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">缩略图</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="thumb" value="{$coin.thumb}" class="layui-input layui-input-inline" id="thumb">
+                            <input type="file" name="file" class="layui-upload-file">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">RPC服务器地址</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="rpc_host" value="{$coin.rpc_host}" required  lay-verify="required" placeholder="请输入RPC服务器地址" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">RPC服务器端口</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="rpc_port" value="{$coin.rpc_port}" required  lay-verify="required" placeholder="请输入RPC服务器端口" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">RPC服务器用户名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="rpc_username" value="{$coin.rpc_username}"  placeholder="请输入RPC服务器用户名" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">RPC服务器密码</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="rpc_password" value="{$coin.rpc_password}" placeholder="请输入RPC服务器密码" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">钱包密码</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="wallet_password" value="{$coin.wallet_password}" placeholder="请输入钱包密码" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">冷钱包地址</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="cold_wallet_address" value="{$coin.cold_wallet_address}" placeholder="请输入冷钱包地址" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">冷钱包数量</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="cold_wallet_address" value="{$coin.cold_wallet_address}" required  lay-verify="required" placeholder="请输入冷钱包数量" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">最小转出金额</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="min_withdraw" value="{$coin.min_withdraw}" required  lay-verify="required" placeholder="请输入最小转出金额" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">自动转出金额</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="auto_withdraw" value="{$coin.auto_withdraw}" required  lay-verify="required" placeholder="请输入自动转出金额" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">转出手续费</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="withdraw_fee" value="{$coin.withdraw_fee}" required  lay-verify="required" placeholder="请输入转出手续费" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">状态</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="status" value="1" title="启用" {if condition="$coin.status==1"} checked="checked"{/if}>
+                            <input type="radio" name="status" value="0" title="禁用" {if condition="$coin.status==0"} checked="checked"{/if}>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                        	<input type="hidden" name="id" value="{$coin.id}">
+                            <button class="layui-btn" lay-submit lay-filter="*">保存</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="js"}
+<script src="__JS__/ueditor/ueditor.config.js"></script>
+<script src="__JS__/ueditor/ueditor.all.min.js"></script>
+{/block}
+{block name="script"}
+<script>
+    $(function() {
+        var uploadImage;
+        $('#upload-photo-btn').on('click', function () {
+            uploadImage = uploadEditor.getDialog("insertimage");
+            uploadImage.open();
+        });
+    });
+</script>
+{/block}

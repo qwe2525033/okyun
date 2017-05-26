@@ -1,0 +1,46 @@
+{extend name="base" /}
+{block name="body"}
+{include file="User:left" /}
+<div class="user-context">
+	<div class="user-title"><h2>虚拟币管理</h2></div>
+	<div class="user-body">
+	<table class="layui-table" lay-even lay-skin="row">
+	  <colgroup>
+	    <col width="230">
+	    <col width="110">
+	    <col width="110">
+	    <col width="110">
+	    <col width="">
+	  </colgroup>
+	  <thead>
+	    <tr>
+	      <th>币种</th>
+	      <th>可用余额</th>
+	      <th>冻结余额</th>
+	      <th>总计余额</th>
+	      <th>操作</th>
+	    </tr> 
+	  </thead>
+	  <tbody>
+	  {foreach name="coins" item="coin"}
+	    <tr>
+	      <td><img src="__PUBLIC__{$coin.thumb}" class="user-coin-img"> {$coin.title_cn}({$coin.title_en})</td>
+	      {php}
+		      $available = 0;
+		      $frozen = 0;
+		      if(isset($usercoin[$coin['name']]))
+		      $available = $usercoin[$coin['name']]['available']*1;
+		      if(isset($usercoin[$coin['name']]))
+		      $frozen = $usercoin[$coin['name']]['frozen']*1;
+	      {/php}
+	      <td>{$available}</td>
+	      <td>{$frozen}</td>
+	      <td>{$available+$frozen}</td>
+	      <td><a class="layui-btn" href="{:url('home/user/recharge',['coinname'=>$coin['name']])}">转入</a><a class="layui-btn" href="{:url('home/user/withdraw',['coinname'=>$coin['name']])}">转出</a></td>
+	    </tr>
+	  {/foreach}
+	  </tbody>
+	</table>
+	</div>
+</div>
+{/block}
